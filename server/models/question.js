@@ -7,4 +7,4 @@ const questionSchema = new Schema({
   text: String,
 })
 
-export.default = mongoose.model('Question', questionSchema)
+module.exports = mongoose.model('Question', questionSchema)
