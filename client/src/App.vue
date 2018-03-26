@@ -1,18 +1,27 @@
 <template>
-  <div id="app">
-    <header>
-      <span>Vue.js PWA</span>
-    </header>
-    <main>
-      <img src="./assets/logo.png" alt="Vue.js PWA">
+  <div id="app" >
+    <navbar></navbar>
+    <main class="container">
       <router-view></router-view>
     </main>
   </div>
 </template>
 
 <script>
+import Navbar from './components/Navbar'
+import { mapActions, mapState } from 'vuex'
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    Navbar
+  },
+  computed: mapState(['isLogin']),
+  created () {
+    this.checkLogin()
+  },
+  methods: {
+    ...mapActions(['checkLogin'])
+  }
 }
 </script>
 
@@ -29,7 +38,6 @@ body {
 }
 
 main {
-  text-align: center;
   margin-top: 40px;
 }
 

@@ -9,7 +9,7 @@ module.exports = {
       if (doc) {
         const check = bcrypt.compareSync(password, doc.password); 
         if (check) {
-          const token = jwt.sign({ id: doc._id }, 'secret');
+          const token = jwt.sign({ _id: doc._id }, 'secret');
           res.status(200).json({
             message: "Success Sign In",
             token
@@ -32,7 +32,7 @@ module.exports = {
       } else {
         User.create(input, function (err, data) {
           if(err) res.status(500).json({ message: err })
-          const token = jwt.sign({ id: data._id }, 'secret');
+          const token = jwt.sign({ _id: data._id }, 'secret');
           res.status(200).json({
             message: "Success Register New User",
             token

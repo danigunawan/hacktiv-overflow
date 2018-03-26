@@ -3,13 +3,23 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import axios from 'axios'
+import store from './store.js'
 
 Vue.config.productionTip = false
+
+let host = 'http://localhost:3000'
+if (location.hostname !== 'localhost') {
+  host = 'http://overflow-api.geekosta.com'
+}
+
+Vue.prototype.$http = axios.create({ baseURL: host })
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })
