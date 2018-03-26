@@ -27,8 +27,8 @@
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <input v-model="query" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="button" @click="onSearch">Search</button>
       </form>
     </div>
   </nav>
@@ -40,11 +40,14 @@ export default {
   name: 'hello',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js PWA'
+      query: ''
     }
   },
   computed: mapState(['isLogin']),
   methods: {
+    onSearch () {
+      this.$emit('on-search', this.query)
+    },
     logout () {
       localStorage.removeItem('token')
       this.checkLogin()

@@ -1,7 +1,8 @@
 <template>
   <div id="app" >
-    <navbar></navbar>
+    <navbar @on-search="onSearch"></navbar>
     <main class="container">
+      <search-question :query="query" v-if="query" @close-search="closeSearch"></search-question>
       <router-view></router-view>
     </main>
   </div>
@@ -9,18 +10,31 @@
 
 <script>
 import Navbar from './components/Navbar'
+import SearchQuestion from './components/SearchQuestion'
 import { mapActions, mapState } from 'vuex'
 export default {
   name: 'app',
+  data () {
+    return {
+      query: ''
+    }
+  },
   components: {
-    Navbar
+    Navbar,
+    SearchQuestion
   },
   computed: mapState(['isLogin']),
   created () {
     this.checkLogin()
   },
   methods: {
-    ...mapActions(['checkLogin'])
+    ...mapActions(['checkLogin']),
+    closeSearch (payload) {
+      this.query = ''
+    },
+    onSearch (payload) {
+      this.query = payload
+    }
   }
 }
 </script>

@@ -21,23 +21,19 @@
 </template>
 
 <script>
+import {mapState, mapActions} from 'vuex'
 export default {
   name: 'hello',
   data () {
     return {
-      questions: []
     }
   },
   created () {
     this.fetchQuestions()
   },
+  computed: mapState(['questions']),
   methods: {
-    fetchQuestions () {
-      const app = this
-      this.$http.get('/questions').then(function (res) {
-        app.questions = res.data.data
-      }).catch(err => console.log(err))
-    }
+    ...mapActions(['fetchQuestions'])
   }
 }
 </script>
