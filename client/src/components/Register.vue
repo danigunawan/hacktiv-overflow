@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col-md-4 offset-md-4">
       <h2>Register</h2>
+      <div class="alert alert-danger" v-if="isEmailDouble"><b>Email has been used</b>, try another email</div>
       <form>
         <div class="form-group">
           <label for="exampleInputEmail1">Email address</label>
@@ -24,6 +25,7 @@
 
 <script>
 
+import { mapActions } from 'vuex'
 export default {
   name: 'Register',
   data () {
@@ -32,17 +34,25 @@ export default {
         email: '',
         name: '',
         password: ''
-      }
+      },
+      isEmailDouble: false
     }
   },
   methods: {
+    ...mapActions(['checkLogin']),
     saveForm () {
       const app = this
       this.$http.post('/users/register', this.user).then(function (res) {
         localStorage.setItem('token', res.data.token)
+        app.checkLogin()
         app.$router.push('/')
       }).catch(function (err) {
         console.log(err)
+        if (err) {
+          if (err.response.status === 400) {
+            app.isEmailDouble = true
+          }
+        }
       })
     }
   }

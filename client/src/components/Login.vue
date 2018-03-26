@@ -20,7 +20,7 @@
 </template>
 
 <script>
-
+import { mapActions } from 'vuex'
 export default {
   name: 'Register',
   data () {
@@ -33,10 +33,12 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['checkLogin']),
     saveForm () {
       const app = this
       this.$http.post('/users/signin', this.user).then(function (res) {
         localStorage.setItem('token', res.data.token)
+        app.checkLogin()
         app.$router.push('/')
       }).catch(function (err) {
         if (err) {
