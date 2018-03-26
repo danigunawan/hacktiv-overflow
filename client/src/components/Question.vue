@@ -32,7 +32,7 @@
           </button>
         </div>
       </div>
-      <div class="card" id="form-answer">
+      <div class="card" id="form-answer" v-if="isLogin">
         <div class="card-body">
           <h3 v-if="!isEdit">Submit Answer</h3>
           <h3 v-if="isEdit">Edit Answer</h3>
@@ -54,6 +54,7 @@
 
 <script>
 import { VueEditor } from 'vue2-editor'
+import { mapState } from 'vuex'
 export default {
   name: 'hello',
   data () {
@@ -67,6 +68,7 @@ export default {
       isEdit: false
     }
   },
+  computed: mapState(['isLogin']),
   created () {
     this.fetchQuestion()
     this.fetchAnswers()
