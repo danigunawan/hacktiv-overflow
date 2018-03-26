@@ -25,14 +25,14 @@
           </div>
           <p class="mb-1" v-html="answer.text"></p>
           <small class="text-muted">{{ answer.user.email }}</small>
-          <button class="btn btn-success float-right" @click="editAnswer(index)" >Edit</button>
+          <a  href="#form-answer" class="btn btn-success float-right" @click="editAnswer(index)" >Edit</a>
           <button class="btn btn-danger float-right" @click="deleteAnswer(answer._id)" >Delete</button>
           <button class="btn btn-primary float-right" @click="upvoteAnswer(answer._id)" >
             {{ answer.upvotes.length }} Upvote
           </button>
         </div>
       </div>
-      <div class="card">
+      <div class="card" id="form-answer">
         <div class="card-body">
           <h3 v-if="!isEdit">Submit Answer</h3>
           <h3 v-if="isEdit">Edit Answer</h3>
@@ -90,6 +90,16 @@ export default {
         app.cancelEditAnswer()
       }).catch(function (err) {
         console.log(err)
+        if (err) {
+          if (err.response.status === 403) {
+            app.$swal({
+              text: `can not delete other people's answers`,
+              titel: 'Fail To Delete!',
+              icon: 'danger'
+            })
+            app.cancelEditAnswer()
+          }
+        }
       })
     },
     fetchAnswers () {
@@ -124,6 +134,15 @@ export default {
         app.fetchAnswers()
       }).catch(function (err) {
         console.log(err)
+        if (err) {
+          if (err.response.status === 403) {
+            app.$swal({
+              text: `can not delete other people's answers`,
+              titel: 'Fail To Delete!',
+              icon: 'danger'
+            })
+          }
+        }
       })
     },
     upvoteQuestion (id) {

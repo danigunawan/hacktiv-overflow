@@ -5,7 +5,9 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 import store from './store.js'
+import VueSweetAlert from 'vue-sweetalert'
 
+Vue.use(VueSweetAlert)
 Vue.config.productionTip = false
 
 let host = 'http://localhost:3000'

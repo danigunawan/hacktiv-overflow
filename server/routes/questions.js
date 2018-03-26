@@ -3,9 +3,9 @@ const router = express.Router();
 const { index, myQuestion, findOne, update, create, destroy, upvote } = require('../controllers/QuestionController')
 const {auth} = require('../middlewares/auth')
 
+router.get('/me',auth, myQuestion);
 router.get('/', index);
 router.get('/:id', findOne);
-router.get('/me', myQuestion);
 
 router.post('/', auth, create)
 router.put('/:id', auth, update)
