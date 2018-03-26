@@ -1,5 +1,6 @@
 const Answer = require('../models/answer')
 const UpvoteAnswer = require('../models/upvoteAnswer')
+const Notification = require('../models/notification')
 
 module.exports = {
   index (req, res) {
@@ -26,11 +27,15 @@ module.exports = {
     const input = { question, text, user }
     Answer.create(input, function (err, data) {
       if (err) return res.status(500).json({message: err})
+      Notification.create({question,answer: data._id}, function(err,data) {
+        if (err) return res.status(500).json({message: err})
+      })
       res.status(201).json({
         message: "Success Add new Answer",
         data
       })
     })
+    
   },
   upvote (req, res) {
     const user = req.user._id
