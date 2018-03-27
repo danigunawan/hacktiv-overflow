@@ -1,5 +1,5 @@
 {
-  "name": "hacktiv-overflow",
+  "name": "Hacktiv-Overflow \n @haidarafif0809",
   "short_name": "overflow",
   "icons": [
     {
@@ -8,7 +8,7 @@
       "type": "image/png"
     },
     {
-      "src": "/static/img/icons/android-chrome-512x512.png",
+      "src": "/static/img/icons/hacktiv8.png",
       "sizes": "512x512",
       "type": "image/png"
     }
