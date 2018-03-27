@@ -51,7 +51,7 @@ module.exports = {
         UpvoteQuestion.findOneAndRemove({_id: data._id}, function (err, data) {
           if(err) return res.status(500).json({ message: err })
           return res.status(200).json({
-            message: "Success DownVote an Question",
+            message: "Success DownVote a Question",
             data
           })
         }) 
@@ -59,7 +59,7 @@ module.exports = {
         UpvoteQuestion.create({ user, question}, function (err, data) {
           if(err) return res.status(500).json({ message: err })
           return res.status(200).json({
-            message: "Success UpVote an Question",
+            message: "Success UpVote a Question",
             data
           })
         }) 

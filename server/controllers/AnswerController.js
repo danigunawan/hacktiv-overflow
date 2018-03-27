@@ -73,7 +73,7 @@ module.exports = {
         Answer.findOneAndUpdate({_id: id}, {text}, { new: true }, function (err, data) {
           if(err) return res.status(500).json({ message: err })
           return res.status(200).json({
-            message: "Success Update a Answer",
+            message: "Success Update an Answer",
             data
           })
         }) 
@@ -94,7 +94,7 @@ module.exports = {
         Answer.findOneAndRemove({_id: id}, function (err, data) {
           if(err) return res.status(500).json({ message: err })
           return res.status(200).json({
-            message: "Success Delete a Answer",
+            message: "Success Delete an Answer",
             data
           })
         }) 
