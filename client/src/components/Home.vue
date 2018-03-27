@@ -7,6 +7,7 @@
           <li class="breadcrumb-item active" aria-current="page">All  Question </li>
         </ol>
       </nav>
+      <spinner v-if="loading" message="Loading Questions.." ></spinner>
       <div class="list-group">
           <router-link :to="{ name: 'Question', params: {id: question._id} }" href="#" :key="index" v-for="(question, index) in questions" class="list-group-item list-group-item-action flex-column align-items-start" >
           <div class="d-flex w-100 justify-content-between">
@@ -31,7 +32,7 @@ export default {
   created () {
     this.fetchQuestions()
   },
-  computed: mapState(['questions']),
+  computed: mapState(['questions', 'loading']),
   methods: {
     ...mapActions(['fetchQuestions'])
   }

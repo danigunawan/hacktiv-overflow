@@ -6,8 +6,10 @@ import router from './router'
 import axios from 'axios'
 import store from './store.js'
 import VueSweetAlert from 'vue-sweetalert'
+import Spinner from 'vue-simple-spinner'
 
 Vue.use(VueSweetAlert)
+Vue.component('spinner', Spinner)
 Vue.config.productionTip = false
 
 let host = 'http://localhost:3000'

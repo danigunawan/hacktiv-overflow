@@ -14,11 +14,18 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     isLogin: false,
+    loading: false,
     questions: []
   },
   mutations: {
     loginState (state, payload) {
       state.isLogin = payload
+    },
+    startLoading (state) {
+      state.loading = true
+    },
+    stopLoading (state) {
+      state.loading = false
     },
     questionState (state, payload) {
       state.questions = payload
@@ -34,8 +41,10 @@ const store = new Vuex.Store({
       }
     },
     fetchQuestions (context) {
+      context.commit('startLoading')
       request.get('/questions').then(function (res) {
         context.commit('questionState', res.data.data)
+        context.commit('stopLoading')
       }).catch(err => console.log(err))
     }
   }

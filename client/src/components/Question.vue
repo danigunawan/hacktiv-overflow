@@ -7,6 +7,7 @@
           <li class="breadcrumb-item active" aria-current="page">Question</li>
         </ol>
       </nav>
+      <spinner v-if="loading" message="Loading Data.." ></spinner>
       <h3>Question</h3>
       <div class="card">
         <div class="card-body">
@@ -46,6 +47,7 @@
               <button type="button" class="btn btn-warning" @click="cancelEditAnswer">Cancel</button>
             </div>
           </form>
+          <spinner v-if="loadingForm" message="Submitting Answer.." ></spinner>
         </div>
       </div>
     </div>
@@ -65,7 +67,9 @@ export default {
       },
       question: {},
       answers: [],
-      isEdit: false
+      isEdit: false,
+      loading: false,
+      loadingForm: false
     }
   },
   computed: mapState(['isLogin']),
@@ -107,25 +111,31 @@ export default {
     fetchAnswers () {
       const app = this
       const id = this.$route.params.id
+      app.loading = true
       this.$http.get(`/answers/${id}/question`).then(function (res) {
         app.answers = res.data.data
+        app.loading = false
       }).catch(function (err) {
         console.log(err)
       })
     },
     fetchQuestion () {
       const app = this
+      app.loading = true
       const id = this.$route.params.id
       this.$http.get(`/questions/${id}`).then(function (res) {
         app.question = res.data.data
+        app.loading = false
       }).catch(function (err) {
         console.log(err)
       })
     },
     saveForm () {
       const app = this
+      app.loadingForm = true
       this.$http.post('/answers', this.answer, { headers: { token: localStorage.token } }).then(function (res) {
         app.fetchAnswers()
+        app.loadingForm = false
       }).catch(function (err) {
         console.log(err)
       })

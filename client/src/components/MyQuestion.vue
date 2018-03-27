@@ -8,6 +8,7 @@
           <li class="breadcrumb-item active" aria-current="page"> My Question </li>
         </ol>
       </nav>
+      <spinner v-if="loading" message="Loading Question.." ></spinner>
       <div class="list-group">
           <router-link :to="{ name: 'EditQuestion', params: {id: question._id} }" href="#" :key="index" v-for="(question, index) in questions" class="list-group-item list-group-item-action flex-column align-items-start" >
           <div class="d-flex w-100 justify-content-between">
@@ -26,7 +27,8 @@ export default {
   name: 'hello',
   data () {
     return {
-      questions: []
+      questions: [],
+      loading: false
     }
   },
   created () {
@@ -35,8 +37,10 @@ export default {
   methods: {
     fetchQuestions () {
       const app = this
+      app.loading = true
       this.$http.get('/questions/me', {headers: { token: localStorage.token }}).then(function (res) {
         app.questions = res.data.data
+        app.loading = false
       }).catch(err => console.log(err))
     }
   }
