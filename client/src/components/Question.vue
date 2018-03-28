@@ -13,6 +13,7 @@
         <div class="card-body">
           <h5 class="card-title">{{ question.title }}</h5>
           <p class="card-text" v-html="question.text"></p>
+          <small class="text-muted">{{ question.user.email }}</small>
           <button class="btn btn-primary float-right" @click="upvoteQuestion(question._id)" >
             {{ question.upvotes.length }} Upvote
           </button>
@@ -21,9 +22,6 @@
       <h3>Answer</h3>
       <div class="list-group">
           <div  :key="index" v-for="(answer, index) in answers" class="list-group-item list-group-item-action flex-column align-items-start" >
-          <div class="d-flex w-100 justify-content-between">
-            <small class="text-muted">3 days ago</small>
-          </div>
           <p class="mb-1" v-html="answer.text"></p>
           <small class="text-muted">{{ answer.user.email }}</small>
           <a  href="#form-answer" class="btn btn-success float-right" @click="editAnswer(index)" >Edit</a>
@@ -187,5 +185,5 @@ export default {
 .btn {
   margin-right: 5px
 }
-  
+
 </style>
